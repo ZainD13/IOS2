@@ -16,18 +16,17 @@ struct ScoreView: View {
             Text("High Score: \(highScore)")
                 .font(.title2)
 
-            // Play again
-            Button("Play Again") {
-                path = NavigationPath()
-                path.append("play")
-            }
-
             // Go back to home screen
             Button("Main Menu") {
                 path = NavigationPath()
             }
         }
         .padding()
-        .navigationBarBackButtonHidden(true) // disable default back button
+        .navigationBarBackButtonHidden(true) // disable back button
     }
+}
+
+#Preview {
+    @Previewable @State var path = NavigationPath()
+    ScoreView(path: $path, finalScore: 11, highScore: 23)
 }

@@ -16,15 +16,10 @@ struct NameEntryView: View {
                 .padding()
 
             Button("Start Game") {
-                startGame()
+                path.append(Route.play(playerName))
             }
             .disabled(playerName.isEmpty)
         }
         .padding()
-    }
-
-    func startGame() {
-        // Navigate to PlayView WITH the name
-        path.append(Route.play(playerName))
     }
 }

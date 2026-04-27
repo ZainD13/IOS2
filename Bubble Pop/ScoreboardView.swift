@@ -1,11 +1,3 @@
-//
-//  ScoreboardView.swift
-//  Bubble Pop
-//
-//  Created by Damaq Mohd Zain on 25/4/2026.
-//
-
-
 import SwiftUI
 
 struct ScoreboardView: View {
@@ -14,26 +6,33 @@ struct ScoreboardView: View {
 
     var body: some View {
         VStack {
-            Text("Scoreboard")
+
+            Text("🏆 High Score Board")
                 .font(.largeTitle)
                 .padding()
 
-            List(scores) { entry in
-                HStack {
-                    Text(entry.name)
-                    Spacer()
-                    Text("\(entry.score)")
+            List {
+                ForEach(Array(sortedScores.enumerated()), id: \.element.id) { index, entry in
+                    HStack {
+                        Text("\(index + 1).")
+                            .frame(width: 40, alignment: .leading)
+
+                        Text(entry.name)
+
+                        Spacer()
+
+                        Text("\(entry.score)")
+                            .bold()
+                    }
                 }
             }
-
-            Button("Clear Scores") {
-                ScoreManager.saveScores([])
-                scores = []
-            }
-            .padding()
         }
         .onAppear {
             scores = ScoreManager.loadScores()
         }
+    }
+
+    var sortedScores: [ScoreEntry] {
+        scores.sorted { $0.score > $1.score }
     }
 }

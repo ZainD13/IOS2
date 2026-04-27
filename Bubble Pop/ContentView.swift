@@ -5,6 +5,7 @@ enum Route: Hashable {
     case settings
     case play(String)
     case scoreboard
+    case score(Int)
 }
 
 struct ContentView: View {
@@ -50,17 +51,15 @@ struct ContentView: View {
 
                 case .scoreboard:
                     ScoreboardView()
+
+                case .score(let finalScore):
+                    ScoreView(
+                        path: $path,
+                        finalScore: finalScore,
+                        highScore: UserDefaults.standard.integer(forKey: "highScore")
+                    )
                 }
             }
-
-            .navigationDestination(for: Int.self) { finalScore in
-                ScoreView(
-                    path: $path,
-                    finalScore: finalScore,
-                    highScore: UserDefaults.standard.integer(forKey: "highScore")
-                )
-            }
-            .padding()
         }
     }
 }
